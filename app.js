@@ -105,7 +105,7 @@ transporter.sendMail(mailOptions, (err, data)=>{
 
  }
 
-}catch(ex){
+}catch(err){
    return res.status(500).send("error");
  }
 });
