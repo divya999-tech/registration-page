@@ -2,10 +2,12 @@ const express=require("express");
 const port=process.env.PORT || 8000;
 const urlencodedParser = express.urlencoded({ extended: true });
 require("dotenv").config();
-const nodemailer = require("nodemailer");
 const MongoClient = require("mongodb").MongoClient;
-//const url="mongodb://localhost:27017"
 const url=process.env.URL
+const nodemailer = require("nodemailer");
+
+//const url="mongodb://localhost:27017"
+
 
 
 const app=express();
@@ -45,31 +47,31 @@ app.get('/', (req,res)=>{
    if(email && password && passwordConfirmation)
    { 
     
-// let transporter=nodemailer.createTransport({
-//     service:'gmail',
-//     auth:{
-//         user:'mtest0649@gmail.com',
-//         pass:'Testing11!'
-//     }
-// });
+let transporter=nodemailer.createTransport({
+    service:'gmail',
+    auth:{
+        user:'mtest0649@gmail.com',
+        pass:'Testing11!'
+    }
+});
 
 
-// let mailOptions={
-//     from:'mtest0649@gmail.com',
-//     to:req.body.email,
-//     //https://www.google.com/settings/security/lesssecureapps  cc:'',
-//     //bcc:'',
-//     subject:'Testing',
-//     text:'it works'
-//     //attachment:[{filename:'', path:''}]
-// }
+let mailOptions={
+    from:'mtest0649@gmail.com',
+    to:req.body.email,
+    //https://www.google.com/settings/security/lesssecureapps  cc:'',
+    //bcc:'',
+    subject:'Testing',
+    text:'it works'
+    //attachment:[{filename:'', path:''}]
+}
 
 
-// transporter.sendMail(mailOptions, (err, data)=>{
-//     if(err){
-//         console.log('Error Occurs')
-//     }else{
-//         console.log('Email sent!!')
+transporter.sendMail(mailOptions, (err, data)=>{
+    if(err){
+        console.log('Error Occurs')
+    }else{
+        console.log('Email sent!!')
         MongoClient.connect(url, { useUnifiedTopology: true }, async (err, client)=> {
           const db=client.db("newregister")
           const collection =db.collection("newusers")
@@ -95,9 +97,9 @@ app.get('/', (req,res)=>{
          })
         
         
-    //}
+    }
 
-//})
+})
 }else{
     res.status(400).send("bad request");
 
@@ -109,5 +111,5 @@ app.get('/', (req,res)=>{
 });
 
 app.listen(port, ()=>{
-    console.log(`Server listening `)
+    console.log(`Server listening on ${port}`)
 })
