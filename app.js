@@ -3,7 +3,7 @@ const port=process.env.PORT || 3000;
 const urlencodedParser = express.urlencoded({ extended: true });
 require("dotenv").config();
 const MongoClient = require("mongodb").MongoClient;
-const url=process.env.URL
+const url=process.env.URL;
 const nodemailer = require("nodemailer");
 
 //const url="mongodb://localhost:27017"
@@ -26,7 +26,7 @@ app.use(function (req, res, next) {
 });
 
 
-app.get('/', (req,res)=>{
+app.get('/', (req, res)=>{
     res.sendFile(__dirname +'/public/index.html');//Route handler
    
   });
